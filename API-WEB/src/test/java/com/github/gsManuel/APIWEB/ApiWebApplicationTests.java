@@ -1,6 +1,6 @@
 package com.github.gsManuel.APIWEB;
 
-import com.github.gsManuel.APIWEB.tests.ControllerTests;
+import com.github.gsManuel.APIWEB.service.ControllerTests;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

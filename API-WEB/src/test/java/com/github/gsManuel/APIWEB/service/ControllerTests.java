@@ -1,4 +1,4 @@
-package com.github.gsManuel.APIWEB.tests;
+package com.github.gsManuel.APIWEB.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,4 +20,5 @@ public class ControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Hello Manuel"));
     }
+
 }
