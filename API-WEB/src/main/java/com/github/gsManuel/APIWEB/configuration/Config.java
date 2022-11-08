@@ -1,8 +1,14 @@
 package com.github.gsManuel.APIWEB.configuration;
 
-import com.github.gsManuel.APIWEB.service.SearchEngine;
-import com.github.gsManuel.APIWEB.service.SearchEngineImpl;
-import com.github.gsManuel.APIWEB.service.SearchService;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransport;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
+import com.github.gsManuel.APIWEB.service.ElasticEngine;
+import com.github.gsManuel.APIWEB.service.ElasticService;
+import com.github.gsManuel.APIWEB.service.QueriesEngine;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,12 +17,23 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 
     @Bean
-    public SearchEngine searchEngine() {
-        return new SearchEngineImpl();
+    public ElasticsearchClient getElasticSearchClient(){
+        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
+        ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+        return new ElasticsearchClient(transport);
     }
 
     @Bean
-    public SearchService searchService(SearchEngine searchEngine) {
-        return new SearchService(searchEngine);
+    public QueriesService getSearchService(ElasticEngine elasticEngine) {
+        return new QueriesServiceImpl(elasticEngine);
+    }
+    @Bean
+    public QueriesEngine queriesEngineEngine(ElasticEngine elasticEngine){
+        return new ElasticEngine(elasticEngine);
+    }
+
+    @Bean
+    public ElasticEngine searchEngine(SearchEngine searchEngine) {
+        return new ElasticService(searchEngine);
     }
 }
