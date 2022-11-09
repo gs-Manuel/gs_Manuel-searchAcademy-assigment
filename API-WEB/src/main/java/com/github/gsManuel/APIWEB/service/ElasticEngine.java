@@ -15,11 +15,16 @@ import java.io.IOException;
 
 public class ElasticEngine implements ElasticService {
 
+    private RestClient client;
+
+    public ElasticEngine(RestClient client) {
+        this.client = client;
+    }
     @Override
     public String getElasticInfo() {
         Request request = new Request("GET", "/");
         try {
-            Response response = RestClient.performRequest(request);
+            Response response = client.performRequest(request);
             return EntityUtils.toString(response.getEntity());
         } catch (IOException e) {
             throw new RuntimeException(e);

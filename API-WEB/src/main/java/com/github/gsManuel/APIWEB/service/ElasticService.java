@@ -6,5 +6,5 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 // It has a SearchEngine as a dependency
 // Endpoint: /search (controller) -> SearchService -> SearchEngine
 public interface ElasticService {
-   static String getElasticInfo();
+   String getElasticInfo();
 }

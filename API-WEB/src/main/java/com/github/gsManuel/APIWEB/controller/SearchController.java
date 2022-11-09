@@ -1,23 +1,22 @@
 package com.github.gsManuel.APIWEB.controller;
 
-import com.github.gsManuel.APIWEB.service.ElasticService;
-import com.github.gsManuel.APIWEB.service.QueriesEngine;
+import co.elastic.clients.elasticsearch.sql.QueryResponse;
 import com.github.gsManuel.APIWEB.service.QueryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 @RequestMapping("/search")
 public class SearchController{
-    @Autowired
-    private final ElasticService searchService;
 
-    public SearchController(ElasticService searchService) {
-        this.searchService = searchService;
+    private QueryService queriesService;
+    public SearchController(QueryService queriesService) {
+        this.queriesService = queriesService;
     }
-    @GetMapping("/{query}")
-    public int search(@PathVariable String query){
-        return QueryService.search(query);
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public QueryResponse search(@RequestParam("query") String query){
+        return queriesService.search(query);
     }
-
-}
+  }
