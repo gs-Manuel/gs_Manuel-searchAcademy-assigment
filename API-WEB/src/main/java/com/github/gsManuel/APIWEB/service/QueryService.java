@@ -1,7 +1,7 @@
 package com.github.gsManuel.APIWEB.service;
 
-import co.elastic.clients.elasticsearch.sql.QueryResponse;
+import com.github.gsManuel.APIWEB.model.QueryRespone;
 
 public interface QueryService {
-    QueryResponse search(String query);
+    QueryRespone search(String query);
 }

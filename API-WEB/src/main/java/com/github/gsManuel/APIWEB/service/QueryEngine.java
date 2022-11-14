@@ -1,6 +1,6 @@
 package com.github.gsManuel.APIWEB.service;
 
-import co.elastic.clients.elasticsearch.sql.QueryResponse;
+import com.github.gsManuel.APIWEB.model.QueryRespone;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 
@@ -13,7 +13,7 @@ public class QueryEngine implements QueryService{
         }
 
         @Override
-        public QueryResponse search(String query) {
+        public QueryRespone search(String query) {
             String elasticInfo = elasticService.getElasticInfo();
             //Parse the json above to obtain the cluster name
             String clusterName = "";
@@ -22,6 +22,6 @@ public class QueryEngine implements QueryService{
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            return new QueryResponse(query, clusterName);
+            return new QueryRespone(query, clusterName);
         }
     }

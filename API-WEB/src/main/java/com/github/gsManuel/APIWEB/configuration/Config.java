@@ -14,32 +14,24 @@ import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-// This is the configuration class where we'll define our beans (objects whose lifecycle is managed by Spring)
 @Configuration
 public class Config {
-
     @Bean
-    public ElasticsearchClient getElasticSearchClient(){
+    public ElasticsearchClient ElasticSearchClient(){
         RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
         ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
         return new ElasticsearchClient(transport);
     }
     @Bean
-    public RestClient getRestClient(){
+    public RestClient RestClient(){
         return RestClient.builder(new HttpHost("localhost", 9200)).build();
     }
     @Bean
-    public ElasticService getElasticService(RestClient restClient) {
+    public ElasticService ElasticService(RestClient restClient) {
         return new ElasticEngine(restClient);
     }
     @Bean
-    public QueryService getSearchService(ElasticService elasticService) {
+    public QueryService SearchService(ElasticService elasticService) {
         return new QueryEngine(elasticService);
     }
-    @Bean
-    public SearchController getSearchController(QueryService queryService) {
-        return new SearchController(queryService);
-    }
-
 }

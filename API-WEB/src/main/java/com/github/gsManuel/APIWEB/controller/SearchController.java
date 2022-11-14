@@ -1,6 +1,6 @@
 package com.github.gsManuel.APIWEB.controller;
 
-import co.elastic.clients.elasticsearch.sql.QueryResponse;
+import com.github.gsManuel.APIWEB.model.QueryRespone;
 import com.github.gsManuel.APIWEB.service.QueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -16,7 +16,7 @@ public class SearchController{
         this.queriesService = queriesService;
     }
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public QueryResponse search(@RequestParam("query") String query){
+    public QueryRespone search(@RequestParam("query") String query){
         return queriesService.search(query);
     }
   }
