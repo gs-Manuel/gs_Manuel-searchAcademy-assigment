@@ -1,7 +1,7 @@
 package com.github.gsManuel.APIWEB.controller;
 
 import com.github.gsManuel.APIWEB.model.QueryRespone;
-import com.github.gsManuel.APIWEB.service.QueryService;
+import com.github.gsManuel.APIWEB.service.query.QueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

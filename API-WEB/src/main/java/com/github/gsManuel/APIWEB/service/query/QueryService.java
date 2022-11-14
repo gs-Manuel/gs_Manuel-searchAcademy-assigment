@@ -1,4 +1,4 @@
-package com.github.gsManuel.APIWEB.service;
+package com.github.gsManuel.APIWEB.service.query;
 
 import com.github.gsManuel.APIWEB.model.QueryRespone;
 

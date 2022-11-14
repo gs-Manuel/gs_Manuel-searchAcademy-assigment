@@ -6,19 +6,13 @@ services:
     container_name: "elasticsearch"
     environment:
       - "discovery.type=single-node"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-     - /Users/gs_manuel/Desktop/Git-projects/gs_Manuel-searchAcademy-assigment/API-WEB/src/main/resources/elasticsearch/data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
   searchapi:
     container_name: searchApi
     build:
-      context: .
+      context: src
       dockerfile: Dockerfile
     ports:
       - "8080:8080"

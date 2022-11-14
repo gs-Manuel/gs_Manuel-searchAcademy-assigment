@@ -1,6 +1,7 @@
-package com.github.gsManuel.APIWEB.service;
+package com.github.gsManuel.APIWEB.service.query;
 
 import com.github.gsManuel.APIWEB.model.QueryRespone;
+import com.github.gsManuel.APIWEB.service.elastic.ElasticService;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 

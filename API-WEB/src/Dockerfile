@@ -3,7 +3,7 @@
 #
 FROM maven AS build
 COPY src /home/app/src
-COPY pom.xml /home/app/
+COPY ../pom.xml /home/app/
 RUN mvn -f /home/app clean package
 
 #
