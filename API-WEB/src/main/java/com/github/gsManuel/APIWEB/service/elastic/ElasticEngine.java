@@ -1,5 +1,6 @@
 package com.github.gsManuel.APIWEB.service.elastic;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import co.elastic.clients.elasticsearch.core.BulkRequest;
@@ -19,50 +20,39 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElasticEngine implements ElasticService {
-
-    private RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200),
-            new HttpHost("elasticsearch", 9200)).build();
     private static final String INDEX_NAME = "imdb";
-    public ElasticEngine(RestClient client) {
-        this.restClient = restClient;
-    }
-    @Override
-    public String getElasticInfo() {
-        Request request = new Request("GET", "/");
-        try {
-            Response response = restClient.performRequest(request);
-            return EntityUtils.toString(response.getEntity());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private final ElasticsearchClient client;
+
+    public ElasticEngine(ElasticsearchClient client) {
+        this.client = client;
     }
     @Override
     public void createIndex() throws IOException {
         try {
-            restClient.indices().delete(d -> d.index(INDEX_NAME));
+            client.indices().delete(d -> d.index(INDEX_NAME));
         } catch (Exception e) {
             // Ignore
         }
 
-        restClient.indices().create(c -> c.index(INDEX_NAME));
+        client.indices().create(c -> c.index(INDEX_NAME));
     }
     @Override
     public void putSettings() throws IOException {
-        restClient.indices().close(c -> c.index(INDEX_NAME));
+        client.indices().close(c -> c.index(INDEX_NAME));
         InputStream analyzer = getClass().getClassLoader().getResourceAsStream("custom_analyzer.json");
-        restClient.indices().putSettings(p -> p.index(INDEX_NAME).withJson(analyzer));
-        restClient.indices().open(o -> o.index(INDEX_NAME));
+        client.indices().putSettings(p -> p.index(INDEX_NAME).withJson(analyzer));
+        client.indices().open(o -> o.index(INDEX_NAME));
     }
 
     @Override
     public void putMapping() throws IOException {
         InputStream mapping = getClass().getClassLoader().getResourceAsStream("mapping.json");
-        restClient.indices().putMapping(p -> p.index(INDEX_NAME).withJson(mapping));
+        client.indices().putMapping(p -> p.index(INDEX_NAME).withJson(mapping));
     }
 
     @Override
     public void indexDocument(Movie movie) throws IOException {
-        restClient.index(i -> i
+        client.index(i -> i
                 .index(INDEX_NAME)
                 .id(movie.getTconst())
                 .document(movie));
@@ -101,7 +91,7 @@ public class ElasticEngine implements ElasticService {
     @Override
     public List<Movie> performQuery(Query query) {
         try {
-            SearchResponse<Movie> response = restClient.search(s -> s
+            SearchResponse<Movie> response = client.search(s -> s
                     .index(INDEX_NAME)
                     .query(query), Movie.class);
 
@@ -125,7 +115,7 @@ public class ElasticEngine implements ElasticService {
                         .document(movie))));
 
         try {
-            BulkResponse bulkResponse = restClient.bulk(request.build());
+            BulkResponse bulkResponse = client.bulk(request.build());
             return !bulkResponse.errors();
         } catch (IOException e) {
             throw new RuntimeException(e);

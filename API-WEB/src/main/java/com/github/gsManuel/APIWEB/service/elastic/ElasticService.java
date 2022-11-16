@@ -8,7 +8,6 @@ import com.github.gsManuel.APIWEB.model.Movie;
 import java.io.IOException;
 import java.util.List;
 public interface ElasticService {
-    String getElasticInfo();
     /**
      * Creates an index using the elastic client
      *

@@ -15,18 +15,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
     @Bean
-    public ElasticsearchClient ElasticSearchClient(){
-        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
+    public ElasticsearchClient getElasticSearchClient() {
+        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200),
+                new HttpHost("elasticsearch", 9200)).build();
         ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
         return new ElasticsearchClient(transport);
     }
     @Bean
-    public RestClient RestClient(){
+    public RestClient getRestClient() {
         return RestClient.builder(new HttpHost("localhost", 9200)).build();
     }
     @Bean
-    public ElasticService ElasticService(RestClient restClient) {
-        return new ElasticEngine(restClient);
+    public ElasticEngine getElasticEngine(ElasticsearchClient client) {
+        return new ElasticEngine(client);
     }
     @Bean
     public QueryService SearchService(ElasticService elasticService) {
