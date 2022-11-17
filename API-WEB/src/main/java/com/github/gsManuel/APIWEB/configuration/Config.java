@@ -30,7 +30,7 @@ public class Config {
         return new ElasticEngine(client);
     }
     @Bean
-    public QueryService SearchService(ElasticService elasticService) {
-        return new QueryEngine(elasticService);
+    public QueryService getQueryService() {
+        return new QueryEngine();
     }
 }

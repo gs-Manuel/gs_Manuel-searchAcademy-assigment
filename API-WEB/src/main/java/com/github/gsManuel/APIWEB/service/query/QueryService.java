@@ -1,7 +1,6 @@
 package com.github.gsManuel.APIWEB.service.query;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import com.github.gsManuel.APIWEB.model.QueryRespone;
 
 import java.util.List;
 

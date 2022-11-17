@@ -3,7 +3,6 @@ package com.github.gsManuel.APIWEB.service.query;
 import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import co.elastic.clients.json.JsonData;
-import com.github.gsManuel.APIWEB.model.QueryRespone;
 import com.github.gsManuel.APIWEB.service.elastic.ElasticService;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;

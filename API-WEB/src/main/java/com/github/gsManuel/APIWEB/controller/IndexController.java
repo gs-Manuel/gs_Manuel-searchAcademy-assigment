@@ -29,7 +29,6 @@ public class IndexController {
         } catch (IOException e) {
             return ResponseEntity.internalServerError().body("Error creating index");
         }
-
         return ResponseEntity.ok("Index created");
     }
 
