@@ -10,6 +10,6 @@ RUN mvn -f /home/app clean package
 # Package stage
 #
 FROM openjdk
-COPY --from=build /home/app/target/search-0.0.1-SNAPSHOT.jar /usr/local/lib/search_app.jar
+COPY --from=build /home/app/target/API-WEB-0.0.1-SNAPSHOT.jar /usr/local/lib/search_app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/search_app.jar"]
