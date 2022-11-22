@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/API-WEB/API-WEB.iml" filepath="$PROJECT_DIR$/API-WEB/API-WEB.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/gs_Manuel-searchAcademy-assigment.iml" filepath="$PROJECT_DIR$/.idea/gs_Manuel-searchAcademy-assigment.iml" />
     </modules>
   </component>
