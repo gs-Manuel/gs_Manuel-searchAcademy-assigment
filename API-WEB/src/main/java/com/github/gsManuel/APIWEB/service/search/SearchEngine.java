@@ -6,6 +6,7 @@ import com.github.gsManuel.APIWEB.service.elastic.ElasticService;
 import com.github.gsManuel.APIWEB.service.query.QueryService;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
+import org.elasticsearch.client.RestClient;
 
 import java.io.IOException;
 import java.util.List;

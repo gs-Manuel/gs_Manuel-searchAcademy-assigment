@@ -5,32 +5,22 @@ import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.github.gsManuel.APIWEB.service.elastic.ElasticEngine;
-import com.github.gsManuel.APIWEB.service.elastic.ElasticService;
-import com.github.gsManuel.APIWEB.service.query.QueryEngine;
-import com.github.gsManuel.APIWEB.service.query.QueryService;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 @Configuration
-public class Config {
+public class ElasticConfig {
     @Bean
-    public ElasticsearchClient getElasticSearchClient() {
+    public ElasticsearchClient ElasticSearchClient() {
         RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200),
                 new HttpHost("elasticsearch", 9200)).build();
         ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
         return new ElasticsearchClient(transport);
     }
     @Bean
-    public RestClient getRestClient() {
+    public RestClient RestClient() {
         return RestClient.builder(new HttpHost("localhost", 9200)).build();
-    }
-    @Bean
-    public ElasticEngine getElasticEngine(ElasticsearchClient client) {
-        return new ElasticEngine(client);
-    }
-    @Bean
-    public QueryService getQueryService() {
-        return new QueryEngine();
     }
 }

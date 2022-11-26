@@ -2,6 +2,7 @@ package com.github.gsManuel.APIWEB.controller;
 
 import com.github.gsManuel.APIWEB.model.Movie;
 import com.github.gsManuel.APIWEB.service.search.SearchService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/search")
-public class SearchController{
+public class SearchController {
+
     private final SearchService searchService;
 
     public SearchController(SearchService searchService) {
