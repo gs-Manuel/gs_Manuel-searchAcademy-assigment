@@ -1,6 +1,7 @@
 package com.github.gsManuel.APIWEB.service.index;
 
 import com.github.gsManuel.APIWEB.model.Movie;
+import com.github.gsManuel.APIWEB.model.Response;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
@@ -22,9 +23,12 @@ public interface IndexService {
     void indexDocument(Movie movie) throws IOException;
 
     /**
-     * Indexes imdb data from a file
-     *
-     * @param file
+     * Indexes imdb data in the index
+     * @param basics
+     * @param crew
+     * @param akas
+     * @param ratings
+     * @return
      */
-    boolean indexImdbData(MultipartFile file);
+    Response indexImdbData(MultipartFile basics, MultipartFile crew, MultipartFile akas, MultipartFile ratings);
 }

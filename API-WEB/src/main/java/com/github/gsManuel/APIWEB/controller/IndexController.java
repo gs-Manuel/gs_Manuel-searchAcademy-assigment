@@ -1,5 +1,6 @@
 package com.github.gsManuel.APIWEB.controller;
 import com.github.gsManuel.APIWEB.model.Movie;
+import com.github.gsManuel.APIWEB.model.Response;
 import com.github.gsManuel.APIWEB.service.index.IndexService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,7 @@ public class IndexController {
 
     /**
      * POST /index - Indexes a new document
+     *
      * @param movie - movie to be indexed
      * @return ResponseEntity - 200 if the document was indexed and 500 if there was an error
      */
@@ -48,14 +50,21 @@ public class IndexController {
     }
 
     /**
-     * POST /index/imdb - Indexes imdb data in the index
+     * POST request that bulk indexes all contents of a given file
+     * Form: POST /index/imdb {JSON body}
      *
-     * @param file - Title basics file containing the data to be indexed
+     * @param basicsFile  : file with basic info to bulk index
+     * @param crewFile    : file with crew info to bulk index
+     * @param akasFile    : file with akas info to bulk index
+     * @param ratingsFile : file with ratings info to bulk index
+     * @return ResponseEntity with right status and custom body
      */
-    @PostMapping("/imdb")
-    public ResponseEntity indexImdbData(@RequestParam("file") MultipartFile file) {
-        indexService.indexImdbData(file);
-        return ResponseEntity.accepted().build();
+    @PostMapping("/index/imdb")
+    public ResponseEntity indexIMDB(@RequestParam("basics") MultipartFile basicsFile,
+                                    @RequestParam("crew") MultipartFile crewFile,
+                                    @RequestParam("akas") MultipartFile akasFile,
+                                    @RequestParam("ratings") MultipartFile ratingsFile) {
+        Response response = indexService.indexImdbData(basicsFile, crewFile, akasFile, ratingsFile);
+        return ResponseEntity.status(response.getStatusCode()).body(response.getMessage());
     }
-
 }
