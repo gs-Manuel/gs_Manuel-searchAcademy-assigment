@@ -23,14 +23,14 @@ public class IndexController {
      *
      * @return ResponseEntity - 200 if the index was created, 400 if the index already exists and 500 if there was an error
      */
-    @PutMapping("/create")
-    public ResponseEntity<String> createIndex() {
+    @PutMapping("/{indexName}")
+    public ResponseEntity<String> createIndex(@PathVariable String indexName, @RequestBody String body)  {
         try {
             indexService.createIndex();
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().body("Error creating index");
+            throw new RuntimeException(e);
         }
-        return ResponseEntity.ok("Index created");
+        return ResponseEntity.status(200).body("Index created");
     }
 
     /**
@@ -59,12 +59,17 @@ public class IndexController {
      * @param ratingsFile : file with ratings info to bulk index
      * @return ResponseEntity with right status and custom body
      */
-    @PostMapping("/index/imdb")
-    public ResponseEntity indexIMDB(@RequestParam("basics") MultipartFile basicsFile,
-                                    @RequestParam("crew") MultipartFile crewFile,
-                                    @RequestParam("akas") MultipartFile akasFile,
-                                    @RequestParam("ratings") MultipartFile ratingsFile) {
-        Response response = indexService.indexImdbData(basicsFile, crewFile, akasFile, ratingsFile);
-        return ResponseEntity.status(response.getStatusCode()).body(response.getMessage());
+    @PostMapping("/imdb")
+    public ResponseEntity indexImdbData(@RequestParam("basics") MultipartFile basicsFile,
+                                        @RequestParam("ratings") MultipartFile ratingsFile,
+                                        @RequestParam("akas") MultipartFile akasFile,
+                                        @RequestParam("crew") MultipartFile crewFile,
+                                        @RequestParam("principals") MultipartFile principalsFile) {
+        try {
+            indexService.indexImdbData(basicsFile, ratingsFile, akasFile, crewFile, principalsFile);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.accepted().build();
     }
 }

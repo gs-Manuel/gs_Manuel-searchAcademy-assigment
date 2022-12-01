@@ -22,13 +22,7 @@ public interface IndexService {
      */
     void indexDocument(Movie movie) throws IOException;
 
-    /**
-     * Indexes imdb data in the index
-     * @param basics
-     * @param crew
-     * @param akas
-     * @param ratings
-     * @return
-     */
-    Response indexImdbData(MultipartFile basics, MultipartFile crew, MultipartFile akas, MultipartFile ratings);
+    void indexImdbData(MultipartFile basicsFile, MultipartFile ratingsFile,
+                       MultipartFile akasFile, MultipartFile crewFile, MultipartFile principalsFile)
+            throws IOException;
 }

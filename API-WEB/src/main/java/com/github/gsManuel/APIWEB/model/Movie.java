@@ -1,20 +1,28 @@
 package com.github.gsManuel.APIWEB.model;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import java.util.List;
 
-@Getter
-@Builder
-@NoArgsConstructor
+@Value
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class Movie {
-    private String tconst;
-    private String titleType;
-    private String primaryTitle;
-    private String originalTitle;
-    private Boolean isAdult;
-    private int startYear;
-    private int endYear;
-    private int runtimeMinutes;
-    private  String genres;
+
+    String tconst;
+    String titleType;
+    String primaryTitle;
+    String originalTitle;
+    Boolean isAdult;
+    int startYear;
+    int endYear;
+    int runtimeMinutes;
+    String[] genres;
+    double averageRating;
+    int numVotes;
+    List<Aka> akas;
+    List<Director> directors;
+    List<Principal> starring;
 }
